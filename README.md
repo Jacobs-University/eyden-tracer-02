@@ -2,7 +2,16 @@
 **Dealine**: 15.10.2020
 
 Please put your name here:  
-**Name**: .......
+**Name**: Otmane Sabir.
+
+## Changes
+
+* I made a small change to the main file so that it would output the images to my render directory differently and
+so that it is also outputs the image before displaying the window.
+
+* I had to change the .gitignore file as well to avoid commiting some garbage files from CLion. 
+
+
 ## Problem 1
 ### Encapsulate camera and primitives from main application logic (Points 5)
 1. Fork the current repository

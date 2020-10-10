@@ -19,7 +19,7 @@ public:
 	/**
 	 * @brief Calculates the color of the hit by the ray \ray object
 	 * @param ray The ray
-	 * @return The color of the hit objesct
+	 * @return The color of the hit object
 	 */
 	virtual Vec3f shade(const Ray& ray) const = 0;
 };

@@ -57,14 +57,19 @@ public:
 		if (ray.t <= f || f <  Epsilon  ) return false;
 		
 		ray.t = f;
-		
+        ray.hit = shared_from_this();
 		return true;
 	}
 
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
-		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+        /* Here I'll be using logic found here:
+         * https://www.khronos.org/opengl/wiki/Calculating_a_Surface_Normal#:~:text=A%20surface%20normal%20for%20a,of%20the%20face%20w.r.t.%20winding).
+         * */
+
+		return Vec3f(m_edge1.val[1]*m_edge2.val[2] - m_edge1.val[2]*m_edge2.val[1],
+		        m_edge1.val[2]*m_edge2.val[0] - m_edge1.val[0]*m_edge2.val[2],
+		        m_edge1.val[0]*m_edge2.val[1] - m_edge1.val[1]*m_edge2.val[0]);
 	}
 	
 private:
