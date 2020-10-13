@@ -53,7 +53,7 @@ Mat RenderFrame(void)
 	scene.add(std::make_shared<CPrimSphere>(shd2, Vec3f(1, -1, 1), 2.2f));
 	scene.add(std::make_shared<CPrimSphere>(shd3, Vec3f(3, 0.8f, -2), 2));
 	scene.add(std::make_shared<CPrimPlane>(shd4, Vec3f(0, -1, 0), Vec3f(0, 1, 0)));
-	scene.add(std::make_shared<CPrimTriangle>(shdM, Vec3f(-2, 3, 1),Vec3f(1, 2, 1),Vec3f(3, 2.8f, 3)));
+	scene.add(std::make_shared<CPrimTriangle>(shd5, Vec3f(-2, 3, 1),Vec3f(1, 2, 1),Vec3f(3, 2.8f, 3)));
 
 	Vec3f pointLightIntensity(25, 25, 25);
 	Vec3f lightPosition1(0, 17.5f, 0);
@@ -85,7 +85,7 @@ Mat RenderFrame(void)
 int main(int argc, char* argv[])
 {
 	Mat img = RenderFrame();
-    imwrite("../render/mirror.jpg", img);
+    imwrite("../render/shaderPhong.jpg", img);
 	imshow("Image", img);
 	waitKey();
 	return 0;

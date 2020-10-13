@@ -23,10 +23,11 @@ public:
 
 	virtual std::optional<Vec3f> illuminate(Ray& ray) override
 	{
-		// --- PUT YOUR CODE HERE ---
-		return std::nullopt;
+        Vec3f pointRay = m_org - ray.org;
+        ray.t = norm(pointRay);
+        ray.dir = normalize(pointRay);
+        return m_intensity / pow(ray.t, 2);
 	}
-
 
 private:
 	Vec3f m_intensity;	///< The emission (red, green, blue)
