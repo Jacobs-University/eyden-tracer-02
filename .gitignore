@@ -22,6 +22,6 @@ doc/html
 
 .DS_Store
 
-#CLion IDE
+# CLion IDE
 .idea
 cmake-build-debug

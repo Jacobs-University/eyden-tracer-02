@@ -9,8 +9,10 @@ Please put your name here:
 * I made a small change to the main file so that it would output the images to my render directory differently and
 so that it is also outputs the image before displaying the window.
 
-* I had to change the .gitignore file as well to avoid commiting some garbage files from CLion. 
+* I had to change the `.gitignore` file as well to avoid committing some garbage files from CLion. 
 
+* I additionally changed the `main.cpp` file in order to automate the testing a little more. This might have resulted in more
+boiler plate code but automated the change of the shader by changing a single variable.
 
 ## Problem 1
 ### Encapsulate camera and primitives from main application logic (Points 5)

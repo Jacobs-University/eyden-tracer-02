@@ -79,11 +79,11 @@ public:
 	 */
 	bool occluded(Ray& ray)
 	{
-	    bool isOccluded = false;
 	    // pretty much the exact same logic as intersect?
 	    for (const auto& prim : m_vpPrims)
-	        isOccluded |= prim->occluded(ray);
-		return isOccluded;
+	        if(prim->occluded(ray))
+	            return true;
+		return false;
 	}
 
 	/**

@@ -33,7 +33,7 @@ public:
 	    if (ray.dir.dot(normal) > 0)
 	        normal *= -1;
         // r = d−2(d⋅n)n
-        Vec3f reflected = ray.dir - 2*(ray.dir.dot(normal))*normal;
+        Vec3f reflected = normalize(ray.dir - 2*(ray.dir.dot(normal))*normal);
         Vec3f color = CShaderFlat::shade(ray);
         Vec3f ambient = m_ka * color;
         auto ambientIntensity = RGB(1, 1, 1);
@@ -42,8 +42,8 @@ public:
         Ray temp;
         temp.org = ray.org + ray.t * ray.dir;
 	    for (const auto& light : m_scene.getLights()){
-	        std::optional<Vec3f> lightInt = light->illuminate(temp);
-	        if (!lightInt.has_value())
+	        auto intensity = light->illuminate(temp);
+	        if (!intensity.has_value())
 	            continue;
 	        double cosLN = temp.dir.dot(normal);
             double cosLR = temp.dir.dot(reflected);
@@ -57,12 +57,12 @@ public:
 	            if (m_scene.occluded(temp))
 	                continue;
 	            Vec3f diffuse = m_kd * color;
-	            final += (diffuse * cosLN).mul(lightInt.value());
+	            final += (diffuse * cosLN).mul(intensity.value());
 	        }
 	        // make sure we're in the front side.
 	        if (cosLR > 0){
 	            Vec3f specular = m_ks * RGB(1, 1, 1);
-	            final += (specular * pow(cosLR, m_ke)).mul(lightInt.value());
+	            final += (specular * pow(cosLR, m_ke)).mul(intensity.value());
 	        }
 	    }
 	    for (auto &x : final.val)

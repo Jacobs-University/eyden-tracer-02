@@ -62,7 +62,6 @@ public:
 		 * we simply need to find the vector that's orthogonal
 		 * to the tangent (vector with dir similar to vec from
 		 * center to intersection pt). */
-
         return normalize((ray.dir*ray.t + ray.org) - m_origin);
 	}
 	
