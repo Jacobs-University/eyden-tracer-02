@@ -19,7 +19,7 @@ boiler plate code but automated the change of the shader by changing a single va
 1. Fork the current repository
 2. Study the new framework-code of 
     - IShader.h, ShaderFlat.h, ShaderEyeLight.h, ShaderPhong.h
-    - ILight.h, LightPoint.h 
+    - ILight.h, LightOmni.h 
     - Scene.h and main.cpp
 3. A pointer ```std::shared_ptr<const IPrim> hit``` is now contained in your ```Ray``` structure. After a ray has been successfully intersected with a primitive, store the primitive’s address in ```hit``` (if the hit ditance is smaller than ```ray.t```).
 4. In the class ```CScene``` you find a method ```void add(const ptr_camera_t pCamera)```. Change your code accordingly using the appropriate vector defined in the class. See also method ```CScene::getActiveCamera()``` to understand how the member-variable ```m_activeCamera```should be also initialized.
@@ -57,7 +57,7 @@ In the last exercise we implemented two simple surface shaders, which do not tak
 1. Implement a point light. Proceed as follows:
     - Study the base interface class ```ILight```. Each light source which we will derive from it has to implement an ```ILight::illuminate(Ray& ray)``` method.
     - Implement the ```CScene::add(const ptr_light_t pLight)``` method.
-    - Implement the ```CLightPoint::illuminate(Ray& ray)``` method. The method should calculate the light intensity, as described in the lecture, which hits the surface point from the light source as well as the direction vector from the surface point to the light source. The direction vector will be later used for shadow computations.
+    - Implement the ```CLightOmni::illuminate(Ray& ray)``` method. The method should calculate the light intensity, as described in the lecture, which hits the surface point from the light source as well as the direction vector from the surface point to the light source. The direction vector will be later used for shadow computations.
 2. Implement the _phong illumination model_
     - The value _L<sub>r</sub>_ returned by ```Vec3f CShaderPhong::Shade(const Ray& ray) const``` should be calculated according to:
     
