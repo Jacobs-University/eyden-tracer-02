@@ -52,13 +52,17 @@ public:
 		}
 		
 		ray.t = dist;
+        ray.hit = shared_from_this();
 		return true;
 	}
 	
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
-		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		/* To find the normal of a point on a sphere
+		 * we simply need to find the vector that's orthogonal
+		 * to the tangent (vector with dir similar to vec from
+		 * center to intersection pt). */
+        return normalize((ray.dir*ray.t + ray.org) - m_origin);
 	}
 	
 private:
