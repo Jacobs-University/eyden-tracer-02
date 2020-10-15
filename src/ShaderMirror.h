@@ -17,7 +17,7 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f(0,0,0);
+		return Vec3f(0, 0, 0);
 	}
 	
 	
