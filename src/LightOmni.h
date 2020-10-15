@@ -24,7 +24,13 @@ public:
 	virtual std::optional<Vec3f> illuminate(Ray& ray) override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return std::nullopt;
+		ray.dir = m_org - ray.org;
+		ray.t = norm(ray.dir);
+		ray.dir = normalize(ray.dir);
+		ray.hit = nullptr;
+
+		double attenuation = 1 / (ray.t*ray.t);
+		return m_intensity * attenuation;
 	}
 
 
