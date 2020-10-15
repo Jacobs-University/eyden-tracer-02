@@ -24,7 +24,10 @@ public:
 	virtual std::optional<Vec3f> illuminate(Ray& ray) override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return std::nullopt;
+		Vec3f direction = m_org - ray.org;
+		Vec3f intensity = m_intensity / pow(cv::norm(direction), 2);
+		ray.dir = normalize(direction);
+		return normalize(intensity);
 	}
 
 
