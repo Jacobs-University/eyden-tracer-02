@@ -27,7 +27,58 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return RGB(0, 0, 0);
+		
+		Vec3f snormal = ray.hit->getNormal(ray);//shading normal N
+		//ray may hit the backside of a surface
+		if (ray.dir.dot(snormal) > 0)
+			snormal = snormal*-1;//turn around		
+		//get reflection vector R
+		Vec3f reflection = normalize(ray.dir - 2 * (ray.dir.dot(snormal)) * snormal);
+		
+		Vec3f color = CShaderFlat::shade();//get colour
+		Vec3f ambientC = m_ka * color;//ambient coefficient * colour
+		Vec3f ambience= RGB(1, 1, 1);//ambience intensity
+
+		//vector elements multiplication.
+		Vec3f AmbientVec = ambientC.mul(ambience);
+
+		Ray L;//Direction Ray L for Light
+		L.org = ray.org + ray.dir * ray.t;
+
+		//check all light sources
+		for (auto& it : m_scene.getLights())
+		{
+			//auto Light = m_scene.getLights();
+			std::optional<Vec3f> intensity = it->illuminate(L);
+
+			if (intensity)
+			{//diffuse
+				double CLN = L.dir.dot(snormal);
+
+				//front side check
+				if (CLN > 0)
+				{//ambient occlusion
+					if (m_scene.occluded(L))
+					{
+						Vec3f diffuseC = m_kd * color;
+						AmbientVec = AmbientVec + (diffuseC * CLN).mul(intensity.value());
+					}
+				}
+				//specular
+				double CLR = reflection.dot(L.dir);
+				if (CLR > 0)
+				{
+					Vec3f specular = m_ks * RGB(1, 1, 1);
+					AmbientVec = AmbientVec + (specular * pow(CLR, m_ke)).mul(intensity.value());
+				}
+			}
+		}
+
+		for (auto& x : AmbientVec.val)
+			if (x > 1)
+				x = 1;
+
+		return AmbientVec;
 	}
 
 	

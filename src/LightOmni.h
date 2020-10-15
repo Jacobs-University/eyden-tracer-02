@@ -22,9 +22,17 @@ public:
 	virtual ~CLightOmni(void) = default;
 
 	virtual std::optional<Vec3f> illuminate(Ray& ray) override
-	{
+	{/*
+	 source:
+	 http://ogldev.atspace.co.uk/www/tutorial20/tutorial20.html
+	 */
 		// --- PUT YOUR CODE HERE ---
-		return std::nullopt;
+		Vec3f pRay = m_org - ray.org;
+		ray.dir = normalize(pRay);
+		ray.t = norm(pRay);
+		double attenuation = (ray.t * ray.t);
+		return m_intensity/attenuation;
+
 	}
 
 

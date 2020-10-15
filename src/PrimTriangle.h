@@ -57,14 +57,18 @@ public:
 		if (ray.t <= f || f <  Epsilon  ) return false;
 		
 		ray.t = f;
-		
+		//store prim address in hit pointer
+		ray.hit = shared_from_this();
+
 		return true;
 	}
 
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		//return the normalized normal of the primitive.
+		Vec3f triangle_normal = (m_edge1).cross(m_edge2);
+		return normalize(triangle_normal);
 	}
 	
 private:

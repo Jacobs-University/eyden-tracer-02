@@ -52,13 +52,18 @@ public:
 		}
 		
 		ray.t = dist;
+		//store prim address in hit pointer
+		ray.hit = shared_from_this();
+
 		return true;
 	}
 	
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		//return the normalized normal of the primitive.
+		Vec3f sphere_normal = (ray.org + (ray.dir * ray.t)) - m_origin;
+		return normalize(sphere_normal);
 	}
 	
 private:

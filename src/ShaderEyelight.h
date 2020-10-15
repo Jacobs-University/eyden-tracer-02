@@ -22,7 +22,9 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return RGB(0, 0, 0);
+		//the angle between the primitive surface normal and the ray direction
+		float angle = ray.dir.dot(ray.hit->getNormal(ray));
+		return fabs(angle) * CShaderFlat::shade(ray);//cos(angle)*colour
 	}
 };
 
