@@ -52,13 +52,17 @@ public:
 		}
 		
 		ray.t = dist;
+		ray.hit = shared_from_this();
 		return true;
 	}
 	
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		//return Vec3f(); //old code
+		Vec3f normal = (ray.org+(ray.t*ray.dir))-m_origin;
+
+		return normalize(normal);
 	}
 	
 private:
