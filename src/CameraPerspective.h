@@ -33,6 +33,8 @@ public:
         m_xAxis = normalize(m_xAxis);
         m_yAxis = normalize(m_yAxis);
         m_zAxis = normalize(m_zAxis);
+
+        
     }
     virtual ~CCameraPerspective(void) = default;
 
