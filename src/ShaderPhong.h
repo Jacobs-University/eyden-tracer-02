@@ -27,7 +27,35 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return RGB(0, 0, 0);
+
+		Ray shadow;
+		Vec3f diff = (0, 0, 0);
+		Vec3f sular = (0, 0, 0);
+		Vec3f amb = CShaderFlat::shade(ray);
+		Vec3f Norm_ = ray.hit->getNormal(ray);
+
+		if (ray.dir.dot(Norm_) > 0) { 
+			Norm_ = -1 * Norm_;
+
+		}
+		shadow.org = ray.dir * ray.t + ray.org;
+
+		for (auto beam : m_scene.getLights()) {
+			
+		    if (!beam->illuminate(shadow) && m_scene.occluded(shadow)) {
+			    continue;
+		    }
+		    Vec3f smth = 2 * shadow.dir.dot(Norm_) * Norm_ - shadow.dir;
+
+		    diff += *beam->illuminate(shadow) * std::max(0.f, shadow.dir.dot(Norm_));
+			sular += *beam->illuminate(shadow) * std::pow(std::max(0.f, smth.dot(-1 * ray.dir)), m_ke);
+			
+		}
+
+		Vec3f res = m_ks * RGB(1, 1, 1).mul(sular)+ m_ka * amb * 1.1  + m_kd * amb.mul(diff);
+
+		return res;
+
 	}
 
 	
