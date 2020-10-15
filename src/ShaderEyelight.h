@@ -22,7 +22,10 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return RGB(0, 0, 0);
+		//using ray.hit->getNormal(ray) to retrieve the surface normal of the primitive
+		Vec3f N = ray.hit->getNormal(ray);
+		Vec3f R = normalize(ray.dir);
+		return abs(N.dot(R))*CShaderFlat::shade();
 	}
 };
 
