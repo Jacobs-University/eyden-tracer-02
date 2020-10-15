@@ -27,10 +27,49 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return RGB(0, 0, 0);
+		Vec3f colorAmbient = CShaderFlat :: shade(ray) * m_ka;
+		Ray ray_2;
+		Vec3f diff_s = 0;
+
+		for (int i = 0; i < m_scene.getLights().size(); i++) {
+			ray_2.org = ray.org + ray.t * ray.dir;
+			std :: optional<Vec3f> lRadiance = m_scene.getLights()[i] -> illuminate(ray_2);
+			ray_2.t = std::numeric_limits<float> :: infinity();
+
+			if (!m_scene.occluded(ray_2)) {
+				if (lRadiance) {
+					// t - theta
+					float t = max(0.0f, ray_2.dir.dot(ray.hit -> getNormal(ray)));
+					diff_s += *lRadiance * t;
+				}
+			}
+		}
+
+		Vec3f diffuse_color = m_kd * diff_s.mul(CShaderFlat::shade(ray));
+
+		Vec3f specular_sum = 0;
+		Ray ray3;
+
+		for (int j = 0; j < m_scene.getLights().size(); j++) {
+			ray3.org = ray.org + ray.t * ray.dir;
+			std :: optional<Vec3f> lRadiance = m_scene.getLights()[j] -> illuminate(ray3);
+			ray3.t = std :: numeric_limits<float> :: infinity();
+			if (!m_scene.occluded(ray_2)) {
+				if (lRadiance) {
+					Vec3f reflected_distance = ray3.dir - 2 * (ray3.dir.dot(ray.hit -> getNormal(ray))) * ray.hit -> getNormal(ray);
+					float t = max(0.0f, ray.dir.dot(reflected_distance));
+
+					specular_sum += *lRadiance * pow(t, m_ke);
+				}
+			}
+		}
+
+		Vec3f specularColor = m_ks * RGB(1, 1, 1).mul(specular_sum);
+
+		return colorAmbient + diffuse_color + specularColor;
 	}
 
-	
+
 private:
 	CScene& m_scene;
 	float 	m_ka;    ///< ambient coefficient
