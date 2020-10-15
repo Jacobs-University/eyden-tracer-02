@@ -57,14 +57,15 @@ public:
 		if (ray.t <= f || f <  Epsilon  ) return false;
 		
 		ray.t = f;
-		
+        //ray.hit = this; // storing the pointer to the closest primitive into ray.hit
 		return true;
 	}
 
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+        return normalize((m_b - m_a).cross(m_c - m_a));
+		//return Vec3f();
 	}
 	
 private:

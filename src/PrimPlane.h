@@ -29,16 +29,18 @@ public:
 	virtual bool intersect(Ray& ray) const override
 	{
 		float dist = (m_origin - ray.org).dot(m_normal) / ray.dir.dot(m_normal);
-		if (dist < Epsilon || isinf(dist) || dist > ray.t) return false;
+		if (dist < Epsilon || isinf(dist) || dist > ray.t)return false;
 		
 		ray.t = dist;
+        //ray.hit = this;
 		return true;
 	}
 	
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+        return m_normal;
+		//return Vec3f();
 	}
 	
 private:

@@ -17,7 +17,17 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f(0,0,0);
+        Ray shade;
+        Vec3f nrm = ray.hit->getNormal(ray);
+        double ray_dnrm = ray.dir.dot(nrm);
+
+        if(ray_dnrm > 0) { nrm = -nrm; }
+
+        shade.dir = normalize(ray.dir - ray_dnrm * nrm * 2);
+        shade.t = std::numeric_limits<float>::max();
+        shade.org = ray.dir * ray.t + ray.org;
+
+        return m_scene.RayTrace(shade);
 	}
 	
 	
