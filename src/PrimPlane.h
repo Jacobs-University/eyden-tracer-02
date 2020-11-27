@@ -32,6 +32,7 @@ public:
 		if (dist < Epsilon || isinf(dist) || dist > ray.t) return false;
 		
 		ray.t = dist;
+		// --- PUT YOUR CODE HERE ---
 		return true;
 	}
 	

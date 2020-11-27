@@ -52,6 +52,7 @@ public:
 		}
 		
 		ray.t = dist;
+		// --- PUT YOUR CODE HERE ---
 		return true;
 	}
 	

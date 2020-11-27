@@ -4,7 +4,7 @@
 
 #include "ILight.h"
 #include "IPrim.h"
-#include "CameraPerspective.h"
+#include "ICamera.h"
 
 // ================================ Scene Class ================================
 /**
@@ -95,6 +95,6 @@ private:
 	Vec3f						m_bgColor;    			///< background color
 	std::vector<ptr_prim_t> 	m_vpPrims;				///< primitives
 	std::vector<ptr_light_t>	m_vpLights;				///< lights
-	std::vector<ptr_camera_t>	m_vpCameras;			//< Cameras
-	size_t						m_activeCamera	= 0;	//< The index of the active camera
+	std::vector<ptr_camera_t>	m_vpCameras;			///< Cameras
+	size_t						m_activeCamera	= 0;	///< The index of the active camera
 };

@@ -57,7 +57,7 @@ public:
 		if (ray.t <= f || f <  Epsilon  ) return false;
 		
 		ray.t = f;
-		
+		// --- PUT YOUR CODE HERE ---
 		return true;
 	}
 

@@ -56,7 +56,7 @@ public:
 
 	
 private:
-	ptr_shader_t m_pShader;		///< Pointer to the sahder, see @ref  IShader
+	ptr_shader_t m_pShader;		///< Pointer to the sahder, see @ref IShader
 };
 
 using ptr_prim_t = std::shared_ptr<IPrim>;
