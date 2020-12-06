@@ -18,7 +18,8 @@ public:
 	virtual Vec3f shade(const Ray& ray = Ray()) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return RGB(0, 0, 0);
+		//return RGB(0, 0, 0);
+		return m_color;
 	}
 
 private:

@@ -1,8 +1,7 @@
 # Practical Assignment 2
 **Dealine**: 15.10.2020
-
-Please put your name here:  
-**Name**: .......
+  
+**Name**: Katrin von Seggern
 ## Problem 1
 ### Encapsulate camera and primitives from main application logic (Points 5)
 1. Fork the current repository

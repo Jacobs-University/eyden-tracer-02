@@ -27,7 +27,44 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return RGB(0, 0, 0);
+		//return RGB(0, 0, 0);
+		Vec3f normal = ray.hit->getNormal(ray);
+		if (ray.dir.dot(normal) > 0) {
+			normal *= -1;
+		}
+		//ambient intensity
+		Vec3f ambienceIntensity(1, 1, 1);
+		
+		//ambient color c_a
+		Vec3f reflect = normalize(ray.dir - 2 * (ray.dir.dot(normal)) * normal);
+		Vec3f color = CShaderFlat::shade();
+		Vec3f c_a = m_ka * color;
+		Vec3f endproduct = c_a.mul(ambienceIntensity);
+		Vec3f res = c_a.mul(ambienceIntensity);
+
+
+		Ray shadow; 
+		shadow.org = ray.org + ray.t * ray.dir;
+		for (auto pLight : m_scene.getLights()) {
+			std::optional<Vec3f> lightIntensity = pLight->illuminate(shadow);
+			float cosLightNormal = shadow.dir.dot(normal);
+			if (cosLightNormal > 0) {
+				if (m_scene.occluded(shadow)) {
+					continue;
+				}
+				Vec3f diffuseColor = m_kd * color;
+				res += (diffuseColor * cosLightNormal).mul(cosLightNormal).mul(lightIntensity.value());
+			}
+			float cosLightReflect = shadow.dir.dot(reflect);
+			if (cosLightReflect > 0) {
+				Vec3f specularColor = m_ks * RGB(1, 1, 1);
+				res += (specularColor * powf(cosLightReflect, m_ke)).mul(lightIntensity.value());
+			}
+
+		}
+		for (int i = 0; i < 3; i++)
+			if (res.val[i] > 1) res.val[i] = 1;
+		return res;
 	}
 
 	
