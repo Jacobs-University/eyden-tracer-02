@@ -1,5 +1,5 @@
 # Practical Assignment 2
-**Dealine**: 15.10.2020
+**Deadline**: 21.10.2021
 
 Please put your name here:  
 **Name**: .......
