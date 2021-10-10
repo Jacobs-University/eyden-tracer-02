@@ -68,11 +68,12 @@ public:
 	 */
 	bool intersect(Ray& ray) const
 	{
-        for (ptr_prim_t primitive : m_vpPrims)
-            if (primitive->intersect(ray))
-                return true;
+        bool intersects = false;
 
-		return false;
+        for (ptr_prim_t primitive : m_vpPrims)
+            intersects |= primitive->intersect(ray);
+
+		return intersects;
 	}
 
 	/**
@@ -90,7 +91,7 @@ public:
 	 */
 	Vec3f RayTrace(Ray& ray) const
 	{
-        return intersect(ray) ? Vec3f(1, 1, 1) : Vec3f(0, 0, 0 );
+        return intersect(ray) ? ray.hit->getShader()->shade(ray) : Vec3f(0, 0, 0);
 	}
 
 
