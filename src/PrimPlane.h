@@ -33,6 +33,7 @@ public:
 		
 		ray.t = dist;
 		// --- PUT YOUR CODE HERE ---
+		ray.hit = shared_from_this();
 		return true;
 	}
 	

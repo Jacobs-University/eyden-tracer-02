@@ -58,6 +58,7 @@ public:
 		
 		ray.t = f;
 		// --- PUT YOUR CODE HERE ---
+		ray.hit = shared_from_this();
 		return true;
 	}
 

@@ -30,6 +30,7 @@ public:
 	void add(const ptr_prim_t pPrim)
 	{
 		// --- PUT YOUR CODE HERE ---
+		this -> m_vpPrims.push_back(pPrim);
 	}
 	/**
 	 * @brief Adds a new light to the scene
@@ -46,6 +47,7 @@ public:
 	void add(const ptr_camera_t pCamera)
 	{
 		// --- PUT YOUR CODE HERE ---
+		this->m_vpCameras.push_back(pCamera);
 	}
 	/**
 	 * @brief Returns the container with all scene light source objects
@@ -68,6 +70,12 @@ public:
 	bool intersect(Ray& ray) const
 	{
 		// --- PUT YOUR CODE HERE ---
+
+		for (size_t i = 0; i < this->m_vpPrims.size(); ++i) {
+			if (this->m_vpPrims[i]->intersect(ray)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -87,7 +95,10 @@ public:
 	Vec3f RayTrace(Ray& ray) const
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		if (this->intersect(ray)) {
+			return ray.hit->getShader()->shade(ray);
+		}
+		return Vec3f(RGB(0, 0, 0));
 	}
 
 
