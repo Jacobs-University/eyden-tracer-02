@@ -81,7 +81,10 @@ public:
 	 */
 	bool occluded(Ray& ray)
 	{
-		// --- PUT YOUR CODE HERE ---
+		for (auto &pPrim : m_vpPrims)
+            if (pPrim->intersect(ray))
+                return true;
+
 		return false;
 	}
 
