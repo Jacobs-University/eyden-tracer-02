@@ -37,7 +37,7 @@ public:
 	 */
 	void add(const ptr_light_t pLight)
 	{
-		// --- PUT YOUR CODE HERE ---
+        m_vpLights.push_back(pLight);
 	}
 	/**
 	 * @brief Adds a new camera to the scene and makes it to be active
