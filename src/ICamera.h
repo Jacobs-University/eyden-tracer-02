@@ -22,7 +22,7 @@ public:
     ICamera(const ICamera&) = delete;
     virtual ~ICamera(void) = default;
     const ICamera& operator=(const ICamera&) = delete;
-	
+    
     /**
      * @brief Initializes a ray \b ray passing trough a screen pixel with coordinates \b x anf \b y
      * @details This function initializes the ray pointing from the camera origin to the pixel
