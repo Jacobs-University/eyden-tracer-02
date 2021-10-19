@@ -32,14 +32,13 @@ public:
 		if (dist < Epsilon || isinf(dist) || dist > ray.t) return false;
 		
 		ray.t = dist;
-		// --- PUT YOUR CODE HERE ---
+		ray.hit = shared_from_this();
 		return true;
 	}
 	
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
-		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		return m_normal;
 	}
 	
 private:
