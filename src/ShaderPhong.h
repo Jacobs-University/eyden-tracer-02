@@ -5,27 +5,27 @@
 class CShaderPhong : public CShaderFlat
 {
 public:
-	/**
-	 * @brief Constructor
-	 * @param scene Reference to the scene
-	 * @param color The color of the object
-	 * @param ka The ambient coefficient
-	 * @param kd The diffuse reflection coefficients
-	 * @param ks The specular refelection coefficients
-	 * @param ke The shininess exponent
-	 */
-	CShaderPhong(CScene& scene, Vec3f color, float ka, float kd, float ks, float ke)
-		: CShaderFlat(color)
-		, m_scene(scene)
-		, m_ka(ka)
-		, m_kd(kd)
-		, m_ks(ks)
-		, m_ke(ke)
-	{}
-	virtual ~CShaderPhong(void) = default;
+    /**
+     * @brief Constructor
+     * @param scene Reference to the scene
+     * @param color The color of the object
+     * @param ka The ambient coefficient
+     * @param kd The diffuse reflection coefficients
+     * @param ks The specular refelection coefficients
+     * @param ke The shininess exponent
+     */
+    CShaderPhong(CScene& scene, Vec3f color, float ka, float kd, float ks, float ke)
+        : CShaderFlat(color)
+        , m_scene(scene)
+        , m_ka(ka)
+        , m_kd(kd)
+        , m_ks(ks)
+        , m_ke(ke)
+    {}
+    virtual ~CShaderPhong(void) = default;
 
-	virtual Vec3f shade(const Ray& ray) const override
-	{
+    virtual Vec3f shade(const Ray& ray) const override
+    {
         Vec3f s(0, 0, 0);
 
         Vec3f color = CShaderFlat::shade(ray);
@@ -41,7 +41,7 @@ public:
             // The origin of the reflected ray is the hitpoint
             reflected.org = ray.org + ray.dir * ray.t;
 
-		    if (cos_alpha > 0)
+            if (cos_alpha > 0)
                 reflected.dir = normalize(ray.dir + 2 * cos_alpha * shadingNormal);
             else
                 reflected.dir = ray.dir;
@@ -87,13 +87,13 @@ public:
         }
 
         return s;
-	}
+    }
 
-	
+    
 private:
-	CScene& m_scene;
-	float 	m_ka;    ///< ambient coefficient
-	float 	m_kd;    ///< diffuse reflection coefficients
-	float 	m_ks;    ///< specular refelection coefficients
-	float 	m_ke;    ///< shininess exponent
+    CScene& m_scene;
+    float 	m_ka;    ///< ambient coefficient
+    float 	m_kd;    ///< diffuse reflection coefficients
+    float 	m_ks;    ///< specular refelection coefficients
+    float 	m_ke;    ///< shininess exponent
 };

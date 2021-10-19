@@ -5,17 +5,17 @@
 class CShaderMirror : public IShader
 {
 public:
-	/**
-	 * @brief Constructor
-	 * @param scene Reference to the scene
-	 */
-	CShaderMirror(CScene& scene)
-		: m_scene(scene)
-	{}
-	virtual ~CShaderMirror(void) = default;
+    /**
+     * @brief Constructor
+     * @param scene Reference to the scene
+     */
+    CShaderMirror(CScene& scene)
+        : m_scene(scene)
+    {}
+    virtual ~CShaderMirror(void) = default;
 
-	virtual Vec3f shade(const Ray& ray) const override
-	{
+    virtual Vec3f shade(const Ray& ray) const override
+    {
         Vec3f shadingNormal = ray.hit->getNormal(ray);
 
         // Calculate the reflected ray origin and direction
@@ -32,9 +32,9 @@ public:
             reflected.dir = ray.dir;
 
         return m_scene.RayTrace(reflected);
-	}
-	
-	
+    }
+    
+    
 private:
-	CScene& m_scene;
+    CScene& m_scene;
 };

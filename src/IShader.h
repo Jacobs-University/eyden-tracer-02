@@ -7,25 +7,25 @@
 struct Ray;
 // ================================ Shader Interface Class ================================
 /**
-	* @brief Basic shader abstract interface class
-	* @ingroup moduleShader
-	* @author Sergey G. Kosov, sergey.kosov@project-10.de
-	*/
+    * @brief Basic shader abstract interface class
+    * @ingroup moduleShader
+    * @author Sergey G. Kosov, sergey.kosov@project-10.de
+    */
 class IShader
 {
 public:
-	IShader(void) = default;
-	IShader(const IShader&) = delete;
-	virtual ~IShader(void) = default;
-	const IShader& operator=(const IShader&) = delete;
+    IShader(void) = default;
+    IShader(const IShader&) = delete;
+    virtual ~IShader(void) = default;
+    const IShader& operator=(const IShader&) = delete;
 
 
-	/**
-	 * @brief Calculates the color of the hit by the ray \b ray object
-	 * @param ray The ray hitting the primitive. ray.hit must point to the primitive
-	 * @return The color of the hit objesct
-	 */
-	virtual Vec3f shade(const Ray& ray) const = 0;
+    /**
+     * @brief Calculates the color of the hit by the ray \b ray object
+     * @param ray The ray hitting the primitive. ray.hit must point to the primitive
+     * @return The color of the hit objesct
+     */
+    virtual Vec3f shade(const Ray& ray) const = 0;
 };
 
 using ptr_shader_t = std::shared_ptr<IShader>;
