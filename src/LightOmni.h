@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ILight.h"
-#include "Ray.h"
+#include "ray.h"
 
 /**
  * @brief Point light source class
@@ -24,8 +24,12 @@ public:
 
 	virtual std::optional<Vec3f> illuminate(Ray& ray) override
 	{
-		// --- PUT YOUR CODE HERE ---
-		return std::nullopt;
+		//calculate ray from point to light source
+		ray.dir = normalize(m_org - ray.org);
+		ray.t = norm(m_org - ray.org);
+		ray.hit = nullptr;
+		
+		return m_intensity / (ray.t * ray.t);
 	}
 
 
