@@ -17,7 +17,18 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f(0,0,0);
+		Vec3f normal = ray.hit->getNormal(ray);
+        Ray reflectedRay;
+        float cosAngle = -ray.dir.dot(normal);
+
+        reflectedRay.org = ray.org + ray.dir * ray.t;
+
+        if (cosAngle > 0)
+            reflectedRay.dir = normalize(ray.dir + 2 * cosAngle * normal);
+        else
+            reflectedRay.dir = ray.dir;
+
+        return this->m_scene.RayTrace(reflectedRay);
 	}
 	
 	
