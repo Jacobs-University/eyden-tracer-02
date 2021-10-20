@@ -39,6 +39,7 @@ public:
 	void add(const ptr_light_t pLight)
 	{
 		// --- PUT YOUR CODE HERE ---
+		this->m_vpLights.push_back(pLight);
 	}
 	/**
 	 * @brief Adds a new camera to the scene and makes it to ba active
@@ -85,6 +86,11 @@ public:
 	bool occluded(Ray& ray)
 	{
 		// --- PUT YOUR CODE HERE ---
+		for (size_t i = 0; i < this->m_vpPrims.size(); ++i) {
+			if (this->m_vpPrims[i]->intersect(ray)) {
+				return true;
+			}
+		}
 		return false;
 	}
 

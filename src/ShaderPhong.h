@@ -27,7 +27,50 @@ public:
 	virtual Vec3f shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return RGB(0, 0, 0);
+
+		Vec3f finalColor(0, 0, 0);
+
+		Vec3f color = CShaderFlat::shade(ray);
+
+		Vec3f normal = ray.hit->getNormal(ray);
+
+		Ray reflected = ray;
+
+		Vec3f ambientColor(0, 0, 0);
+
+		if (this->m_ka) {
+			finalColor += this->m_ka * color.mul(ambientColor);
+		}
+
+		if (this->m_kd > 0 || this->m_ke > 0) {
+
+			Ray I;
+
+            I.org = ray.org + ray.t * ray.dir;
+
+            for (auto &pLight : m_scene.getLights()) {
+                I.hit = ray.hit;
+
+                auto radiance = pLight->illuminate(I);
+
+                if (radiance && !this->m_scene.occluded(I)) {
+                    if (m_kd > 0) {
+                        float cosAngleNormal = normal.dot(I.dir);
+
+                        if (cosAngleNormal > 0)
+                            finalColor += this->m_kd * cosAngleNormal * color.mul(radiance.value());
+                    }
+
+                    if (m_ks > 0) {
+                        float cosAngleReflect = reflected.dir.dot(I.dir);
+
+                        if (cosAngleReflect > 0)
+                            finalColor += this->m_ks * powf(cosAngleReflect, this->m_ke) * radiance.value();
+                    }
+                }
+            }
+		}
+		return finalColor;
 	}
 
 	
