@@ -2,7 +2,7 @@
 **Deadline**: 21.10.2021
 
 Please put your name here:  
-**Name**: .......
+**Name**: Alexandru Rotileanu
 ## Problem 1
 ### Encapsulate camera and primitives from main application logic (Points 5)
 1. Fork the current repository

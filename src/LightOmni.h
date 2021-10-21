@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ILight.h"
-#include "Ray.h"
+#include "ray.h"
 
 /**
  * @brief Point light source class
@@ -30,6 +30,8 @@ public:
 
 
 private:
+
 	Vec3f m_intensity;	///< The emission (red, green, blue)
 	Vec3f m_org;		///< The light source origin
+	
 };
