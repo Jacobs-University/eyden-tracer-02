@@ -53,13 +53,20 @@ public:
 		
 		ray.t = dist;
 		// --- PUT YOUR CODE HERE ---
+		ray.hit = shared_from_this();
+
 		return true;
 	}
 	
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		//assuming it is hit already so we should have ray.hit
+		if (ray.hit) {
+			Vec3f HitPoint = ray.dir* ray.t + ray.org;
+			return normalize(HitPoint - m_origin);
+		}
+		return Vec3f(0, 0, 0);
 	}
 	
 private:
