@@ -33,14 +33,15 @@ public:
 		
 		ray.t = dist;
 		// --- PUT YOUR CODE HERE ---
+		ray.hit = shared_from_this();       //Need to put the address of the primitive.
 		return true;
 	}
 	
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
-	}
+		
+		return normalize(m_normal);	}
 	
 private:
 	Vec3f m_normal;	///< Point on the plane
