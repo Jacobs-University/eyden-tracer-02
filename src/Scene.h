@@ -87,12 +87,14 @@ public:
 	{
 		// --- PUT YOUR CODE HERE ---
 		// for each primitives if no ray reach then return false
+		bool hit = false;
 		for (auto EachPri : m_vpPrims) {
-			if (intersect(ray)) {
+			/*if (EachPri -> intersect(ray)) {
 				return true;
-			}
+			}*/
+			hit |= EachPri->intersect(ray);
 		}
-		return false;
+		return hit;
 	}
 
 	/**

@@ -48,26 +48,29 @@ public:
 		Vec3f SumSpecular;
 
 		for (auto EachLight : LightSources) {
+			
 			Ray TempRay, ReflectedRay;
 			TempRay.org = ray.org + ray.dir * ray.t;
 			TempRay.hit = ray.hit;
 			ReflectedRay = ray;
+			ReflectedRay.dir = ray.dir - ray.dir.dot(SurfaceNormal) * SurfaceNormal * 2;
 			//if occuluded then skip
 			//if (!m_scene.occluded(TempRay)) {
-			//	//get each light radiance 
-			Vec3f EachRadiance = EachLight->illuminate(TempRay).value();
+				//get each light radiance 
+				Vec3f EachRadiance = EachLight->illuminate(TempRay).value();
 				//for diffuse
-			auto CosTheta = SurfaceNormal.dot(TempRay.dir);
-			if (CosTheta > 0) {
-				SumDiffuse += EachRadiance * CosTheta;
-			}
-			//for specular
-				//calculating Angle
-			double DotResult = TempRay.dir.dot(normalize(ReflectedRay.dir));
-			if (DotResult > 0) {
-				DotResult = pow(DotResult, m_ke);
-				SumSpecular += EachRadiance * DotResult;
-			}
+				auto CosTheta = SurfaceNormal.dot(TempRay.dir);
+				if (CosTheta > 0) {
+					SumDiffuse += EachRadiance * CosTheta;
+				}
+				//for specular
+					//calculating Angle
+				double DotResult = TempRay.dir.dot(normalize(ReflectedRay.dir));
+				if (DotResult > 0) {
+					DotResult = pow(DotResult, m_ke);
+					SumSpecular += EachRadiance * DotResult;
+				}
+			//}
 				
 		}
 		SumDiffuse = SumDiffuse.mul(m_color) * m_kd;
@@ -76,7 +79,8 @@ public:
 		FinalResult += ambient;
 		//auto FinalResult = ambient + SumSpecular;
 		//auto FinalResult = SumSpecular;
-		FinalResult += SumDiffuse + SumSpecular;
+		FinalResult += SumDiffuse;
+		FinalResult += SumSpecular;
 		return FinalResult;
 	}
 	
