@@ -30,6 +30,7 @@ public:
 	void add(const ptr_prim_t pPrim)
 	{
 		// --- PUT YOUR CODE HERE ---
+		m_vpPrims.push_back(pPrim);
 	}
 	/**
 	 * @brief Adds a new light to the scene
@@ -38,6 +39,7 @@ public:
 	void add(const ptr_light_t pLight)
 	{
 		// --- PUT YOUR CODE HERE ---
+		m_vpLights.push_back(pLight);
 	}
 	/**
 	 * @brief Adds a new camera to the scene and makes it to ba active
@@ -46,6 +48,8 @@ public:
 	void add(const ptr_camera_t pCamera)
 	{
 		// --- PUT YOUR CODE HERE ---
+		m_vpCameras.push_back(pCamera);
+		m_activeCamera = m_vpCameras.size() - 1;
 	}
 	/**
 	 * @brief Returns the container with all scene light source objects
@@ -68,6 +72,11 @@ public:
 	bool intersect(Ray& ray) const
 	{
 		// --- PUT YOUR CODE HERE ---
+		for (auto Prim : m_vpPrims) {
+			if (Prim -> intersect(ray)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -77,7 +86,15 @@ public:
 	bool occluded(Ray& ray)
 	{
 		// --- PUT YOUR CODE HERE ---
-		return false;
+		// for each primitives if no ray reach then return false
+		bool hit = false;
+		for (auto EachPri : m_vpPrims) {
+			/*if (EachPri -> intersect(ray)) {
+				return true;
+			}*/
+			hit |= EachPri->intersect(ray);
+		}
+		return hit;
 	}
 
 	/**
@@ -87,7 +104,12 @@ public:
 	Vec3f RayTrace(Ray& ray) const
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		if (intersect(ray)) {
+			if (ray.hit->getShader()) {
+				return ray.hit->getShader()->shade(ray);
+			}
+		}
+		return m_bgColor;
 	}
 
 

@@ -33,13 +33,16 @@ public:
 		
 		ray.t = dist;
 		// --- PUT YOUR CODE HERE ---
+		ray.hit = shared_from_this();
+		//ray.hit -> getShader() -> shade(ray);
 		return true;
 	}
 	
 	virtual Vec3f getNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		return m_normal;
+		//return Vec3f();
 	}
 	
 private:

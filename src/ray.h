@@ -12,5 +12,5 @@ struct Ray
 	Vec3f							org;												///< Origin
 	Vec3f							dir;												///< Direction
 	double							t		= std::numeric_limits<double>::infinity();	///< Current/maximum hit distance
-	std::shared_ptr<const IPrim>	hit		= nullptr;									///< Pointer to currently closest primitive
+	std::shared_ptr<const IPrim>	 hit		= nullptr;									///< Pointer to currently closest primitive
 };

@@ -25,7 +25,16 @@ public:
 	virtual std::optional<Vec3f> illuminate(Ray& ray) override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return std::nullopt;
+		Vec3f LightIntensity;
+		//Vec3f DirectionVector;
+		//DirectionVector = Hitpoint - m_org;
+		//LightIntensity = m_intensity;
+		auto Direction = m_org - ray.org;
+		ray.dir = normalize(Direction);
+		ray.t = norm(Direction);
+		LightIntensity = m_intensity / (ray.t * ray.t);
+		return LightIntensity;
+		//return std::nullopt;
 	}
 
 
